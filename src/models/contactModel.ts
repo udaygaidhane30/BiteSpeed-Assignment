@@ -1,13 +1,4 @@
-// import { pgTable, serial, text, varchar, PgColumn } from "drizzle-orm/pg-core";
-
-// export const users = pgTable("contacts", {
-//   id: serial("id").primaryKey(),
-//   fullName: text("full_name"),
-//   phoneNumber: varchar("phoneNumber", { length: 256 }),
-//   email: varchar("email", { length: 256 }),
-//   linkedId: int("linkedId", {DEFA})
-// });
-
+import { InferModel } from "drizzle-orm";
 import {
   pgTable,
   serial,
@@ -19,11 +10,14 @@ import {
 
 export const contacts = pgTable("contacts", {
   id: serial("id").primaryKey(),
-  phoneNumber: varchar("phone_number", { length: 256 }),
-  email: varchar("email", { length: 256 }),
-  linkedId: integer("linked_id"),
-  linkPrecedence: text("link_precedence").default("primary"),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-  deletedAt: timestamp("deleted_at"),
+  phoneNumber: text("phoneNumber"),
+  email: text("email"),
+  linkedId: integer("linkedId"),
+  linkPrecedence: text("linkPrecedence").default("primary"),
+  createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow(),
+  deletedAt: timestamp("deletedAt"),
 });
+
+
+export type Contact = InferModel<typeof contacts>;
